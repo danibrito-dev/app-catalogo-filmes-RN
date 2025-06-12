@@ -34,3 +34,6 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# dados da API do TMDB
+/src/screens/services/*
