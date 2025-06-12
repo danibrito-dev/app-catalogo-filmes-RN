@@ -36,4 +36,11 @@ export const styles = StyleSheet.create({
     height: 40,
   },
 
+  noResult: {
+    color: "#fff",
+    fontSize: 18,
+    textAlign: "center",
+    marginVertical: 10,
+  },
+
 });

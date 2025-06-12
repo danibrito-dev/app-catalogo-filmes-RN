@@ -47,8 +47,11 @@ export function Home() {
 
     if(response.data.results.length === 0) {
       // nenhum resultado encontrado
-      setNoResult(true) 
+      setNoResult(true);
+      // setLoading(false);
+      setSearchResultMovies([]);
     } else {
+      setNoResult(false);
       setSearchResultMovies(response.data.results)
     }
     setLoading(false)
@@ -82,6 +85,13 @@ export function Home() {
           />
           <MagnifyingGlass color="#fff" size={25} weight="light"/>
         </View>
+
+        {noResult && (
+          <Text style={styles.noResult}>
+            Nenhum filme encontrado para "{search}"
+          </Text>
+        )}
+
       </View>
 
       <View>
