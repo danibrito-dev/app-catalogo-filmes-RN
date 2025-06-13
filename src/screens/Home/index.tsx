@@ -4,6 +4,7 @@ import { MagnifyingGlass } from "phosphor-react-native";
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import { CardMovies } from "../../components/CardMovies";
+import { useNavigation } from "@react-navigation/native";
 
 
 interface Movie {
@@ -70,6 +71,16 @@ export function Home() {
 
   const movieData = search.length > 2 ? searchResultMovies : discoveryMovies;
 
+  const navigation = useNavigation();
+
+  // função para renderizar detalhe do movie:
+  const renderMovieItem = ({ item }: { item: Movie }) => (
+    <CardMovies 
+      data={item} 
+      onPress={ () => navigation.navigate("Details", {movieID: item.id}) } 
+    />
+  )
+
   return(
     <View style={styles.container}>
       <View style={styles.header}>
@@ -98,7 +109,7 @@ export function Home() {
         <FlatList 
           data={movieData}
           numColumns={3}
-          renderItem={(item) => <CardMovies data={item.item} /> }
+          renderItem={ renderMovieItem }
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             padding: 35,
