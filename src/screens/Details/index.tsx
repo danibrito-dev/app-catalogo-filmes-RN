@@ -1,4 +1,4 @@
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { api } from "../services/api";
@@ -26,7 +26,9 @@ export function Details() {
   const [loading, setLoading ] = useState(false)
   const route = useRoute()
   // const { movieId } = route.params as RouterProps;
-  const movieId = (route.params).movieID
+  const movieId = (route.params).movieID;
+
+  const navigation = useNavigation();
 
   // criar "useEffect" para buscar o movie
   useEffect( () => {
@@ -61,7 +63,7 @@ export function Details() {
   return(
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <CaretLeft color="#fff" size={32} weight="thin" />
         </TouchableOpacity>
 
@@ -130,7 +132,11 @@ export function Details() {
 
       <View style={styles.about}>
         <Text style={styles.aboutText}>Sinopse</Text>
-        <Text style={styles.aboutText}>{movieDetails?.overview === "" ? "Oppa! Parece que esse filme não possui sinopse :-(" : movieDetails.overview}</Text>
+        <Text style={styles.aboutText}>
+          {movieDetails?.overview === ""
+            ? "Ops! Parece que esse filme ainda não tem sinopse :-("
+            : movieDetails?.overview}
+        </Text>
       </View>
     </View>
   )
